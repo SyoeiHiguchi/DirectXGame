@@ -8,7 +8,7 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene()
 { 
-	delete sprite_;
+	
 	delete model_;
 }
 
@@ -20,32 +20,41 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHundle_ = TextureManager::Load("mario.jpg");
 	soundDateHundle_ = audio_->LoadWave("se_sad03.wav");
-	sprite_ = Sprite::Create(textureHundle_, {100, 50});
 	model_ = Model::Create();
+	worldTransform_.scale_ = {5.0f, 5.0f, 5.0f};
+	worldTransform_.rotation_ = {XMConvertToRadians(45.0f), XMConvertToRadians(45.0f), 0.0f};
+	worldTransform_.translation_ = {10.0f, 10.0f, 10.0f};
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
-	audio_->PlayWave(soundDateHundle_);
-	voiceHundle_ = audio_->PlayWave(soundDateHundle_,true);
+	/*audio_->PlayWave(soundDateHundle_);
+	voiceHundle_ = audio_->PlayWave(soundDateHundle_,true);*/
 }
 
 void GameScene::Update() 
 {
-	//スプライトの今座標を読み込む
-	XMFLOAT2 position = sprite_->GetPosition();
-	position.x += 2.0f;
-	position.y += 2.0f;
-	sprite_->SetPosition(position);
-	if (input_->TriggerKey(DIK_SPACE)) 
+	
+	/*if (input_->TriggerKey(DIK_SPACE)) 
 	{
 		audio_->StopWave(voiceHundle_);
 	}
-	/*debugText_->Print("kaizokuou ni oreha naru", 50, 50, 1.0f);
-	debugText_->SetPos(50, 70);
-	debugText_->Printf("year::%d", 2001);*/
+	
 	value_++;
 	std::string strDebug = std::string("value:")+
 	std::to_string(value_);
-	debugText_->Print(strDebug, 50, 50, 1.0f);
+	debugText_->Print(strDebug, 50, 50, 1.0f);*/
+	debugText_->SetPos(20, 40);
+	debugText_->Printf(
+	  "translation:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y,
+	  worldTransform_.translation_.z);
+	debugText_->SetPos(20, 60);
+	debugText_->Printf(
+	  "rotation:(%f,%f,%f)", worldTransform_.rotation_.x, worldTransform_.rotation_.y,
+	  worldTransform_.rotation_.z);
+	debugText_->SetPos(20, 80);
+	debugText_->Printf(
+	  "scale:(%f,%f,%f)", worldTransform_.scale_.x, worldTransform_.scale_.y,
+	  worldTransform_.scale_.z);
+	
 }
 
 void GameScene::Draw() {
@@ -86,7 +95,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	sprite_->Draw();
+	
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
 	//

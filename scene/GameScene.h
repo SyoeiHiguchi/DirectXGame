@@ -50,7 +50,7 @@ class GameScene {
 	uint32_t textureHundle_ = 0; //テクスチャハンドル
 	uint32_t soundDateHundle_ = 0;//サウンドハンドル
 	uint32_t voiceHundle_ = 0;
-	Sprite* sprite_ = nullptr;//スプライト
+	
 	Model* model_ = nullptr;
 	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
