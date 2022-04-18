@@ -15,7 +15,6 @@
 /// ゲームシーン
 /// </summary>
 class GameScene {
-
   public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
@@ -52,11 +51,11 @@ class GameScene {
 	uint32_t voiceHundle_ = 0;
 	
 	Model* model_ = nullptr;
-	WorldTransform worldTransform_;
+	WorldTransform worldTransform_[100]; //ワールドトランスフォーム
 	ViewProjection viewProjection_;
 	int32_t value_ = 0;
 
-
+	float viewAngel = 0.0f; //カメラ上方向の角度
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
