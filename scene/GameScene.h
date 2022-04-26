@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "Audio.h"
-#include "DirectXCommon.h"
 #include "DebugText.h"
+#include "DirectXCommon.h"
 #include "Input.h"
 #include "Model.h"
 #include "SafeDelete.h"
@@ -16,16 +16,16 @@
 /// </summary>
 class GameScene {
   public: // メンバ関数
-	  enum PartId {
-		  Root,//大本
-		  Spine,//脊髄
-		  Chest,//胸
-		  Head,//頭
-		  Arml,//左腕
-		  ArmR,//右腕
-		  Hip,//尻
-		  LegL,//左足
-		  LegR,//右足
+	enum PartId {
+		Root,  //大本
+		Spine, //脊髄
+		Chest, //胸
+		Head,  //頭
+		Arml,  //左腕
+		ArmR,  //右腕
+		Hip,   //尻
+		LegL,  //左足
+		LegR,  //右足
 	};
 	/// <summary>
 	/// コンストクラタ
@@ -57,17 +57,17 @@ class GameScene {
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
-	uint32_t textureHundle_ = 0; //テクスチャハンドル
-	uint32_t soundDateHundle_ = 0;//サウンドハンドル
+	uint32_t textureHundle_ = 0;   //テクスチャハンドル
+	uint32_t soundDateHundle_ = 0; //サウンドハンドル
 	uint32_t voiceHundle_ = 0;
-	
+
 	Model* model_ = nullptr;
 	WorldTransform worldTransform_[100]; //ワールドトランスフォーム
 	ViewProjection viewProjection_;
 	int32_t value_ = 0;
 
 	float viewAngel = 0.0f; //カメラ上方向の角度
-	/// <summary>
-	/// ゲームシーン用
-	/// </summary>
+	                        /// <summary>
+	                        /// ゲームシーン用
+	                        /// </summary>
 };
