@@ -24,25 +24,29 @@ void GameScene::Initialize() {
 	std::uniform_real_distribution<float> rotDist(0.0f, XM_2PI); //乱数範囲（回転軸用）
 	std::uniform_real_distribution<float> posDist(-10.0f, 10.0); //乱数範囲（座標用）
 
-	 for (size_t i = 0; i < _countof(worldTransform_); i++)
+	 for (size_t y = 0; y < _countof(worldTransform_); y++)
 	{
-		float scale = 4.0f;
-		worldTransform_[i].scale_ = {scale, scale, scale}; // x,y,z軸周りのスケーリング角を設定
-		worldTransform_[i].rotation_ = { 0,0,0}; // x,y,z軸周りの回転角を設定
-		if (i <= _countof(worldTransform_) /2)
+		for (size_t x = 0; x < _countof(*worldTransform_); x++) 
 		{
-			float x = i * 2.0f * scale - 60;
-			float y = 20.0f;
-			float z = 0.0f;
-			worldTransform_[i].translation_ = {x, y, z}; ////x,y,z軸周りの平行移動を設定
-		} else {
-			float x = (i - _countof(worldTransform_) / 2 - 1) * 2.0f * scale - 60;
-			float y = -20.0f;
-			float z = 0.0f;
-			worldTransform_[i].translation_ = { x, y, z}; ////x,y,z軸周りの平行移動を設定
+			float scale = 1.0f;
+			if (y % 2 && x % 2)
+			{
+				worldTransform_[y][x].scale_ = {
+				 0,0,0}; // x,y,z軸周りのスケーリング角を設定
+			} else {
+				worldTransform_[y][x].scale_ = {
+				  scale, scale, scale}; // x,y,z軸周りのスケーリング角を設定
+			}
+
+			
+			worldTransform_[y][x].rotation_ = {0, 0, 0}; // x,y,z軸周りの回転角を設定
+			
+			float x_ = x * 4.0f - 15;
+			float y_ = y * 4.0f - 15;
+			float z_ = 0.0f;
+			worldTransform_[y][x].translation_ = {x_, y_, z_}; ////x,y,z軸周りの平行移動を設定
+			worldTransform_[y][x].Initialize();
 		}
-		
-		worldTransform_[i].Initialize();
 
 	}
 	
@@ -162,9 +166,12 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	 for (size_t i = 0; i < _countof(worldTransform_); i++)
+	 for (size_t y = 0; y < _countof(worldTransform_); y++)
 	{
-	    model_->Draw(worldTransform_[i], viewProjection_, textureHundle_);
+		for (size_t x = 0; x < _countof(*worldTransform_); x++) {
+			 model_->Draw(worldTransform_[y][x], viewProjection_, textureHundle_);	
+		}
+	  
 	}
 
 	// 3Dオブジェクト描画後処理
