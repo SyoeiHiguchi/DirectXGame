@@ -62,7 +62,7 @@ class GameScene {
 	uint32_t voiceHundle_ = 0;
 
 	Model* model_ = nullptr;
-	WorldTransform worldTransform_[9][9]; //ワールドトランスフォーム
+	WorldTransform worldTransform_[9][9][9]; //ワールドトランスフォーム
 	ViewProjection viewProjection_;
 	int32_t value_ = 0;
 

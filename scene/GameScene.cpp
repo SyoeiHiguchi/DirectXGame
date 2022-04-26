@@ -28,26 +28,21 @@ void GameScene::Initialize() {
 	{
 		for (size_t x = 0; x < _countof(*worldTransform_); x++) 
 		{
-			float scale = 1.0f;
-			if (y % 2 && x % 2)
-			{
-				worldTransform_[y][x].scale_ = {
-				 0,0,0}; // x,y,z軸周りのスケーリング角を設定
-			} else {
-				worldTransform_[y][x].scale_ = {
+			 for (size_t z = 0; z < _countof(**worldTransform_); z++) 
+			 {
+				float scale = 1.0f;
+				worldTransform_[z][y][x].scale_ = {
 				  scale, scale, scale}; // x,y,z軸周りのスケーリング角を設定
+
+				worldTransform_[z][y][x].rotation_ = {0, 0, 0}; // x,y,z軸周りの回転角を設定
+
+				float x_ = x * 3.0f - 10;
+				float y_ = y * 3.0f - 10;
+				float z_ = z * 3.0f;
+				worldTransform_[z][y][x].translation_ = {x_, y_, z_}; ////x,y,z軸周りの平行移動を設定
+				worldTransform_[z][y][x].Initialize();
 			}
-
-			
-			worldTransform_[y][x].rotation_ = {0, 0, 0}; // x,y,z軸周りの回転角を設定
-			
-			float x_ = x * 4.0f - 15;
-			float y_ = y * 4.0f - 15;
-			float z_ = 0.0f;
-			worldTransform_[y][x].translation_ = {x_, y_, z_}; ////x,y,z軸周りの平行移動を設定
-			worldTransform_[y][x].Initialize();
-		}
-
+			 }
 	}
 	
 
@@ -166,13 +161,14 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	 for (size_t y = 0; y < _countof(worldTransform_); y++)
-	{
+	 for (size_t y = 0; y < _countof(worldTransform_); y++) {
 		for (size_t x = 0; x < _countof(*worldTransform_); x++) {
-			 model_->Draw(worldTransform_[y][x], viewProjection_, textureHundle_);	
+			for (size_t z = 0; z < _countof(*worldTransform_); z++) {
+				model_->Draw(worldTransform_[z][y][x], viewProjection_, textureHundle_);
+			}
 		}
-	  
-	}
+	 }
+		
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
